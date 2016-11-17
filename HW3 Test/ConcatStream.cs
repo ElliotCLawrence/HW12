@@ -1,4 +1,4 @@
-﻿/*Elliot Lawrence
+/*Elliot Lawrence
  *ID 11349302
  *HW 5
  *CS422
@@ -78,10 +78,11 @@ namespace CS422
                     return maxLength;
                 else //else
                 {
-					return firstStream.Length + secondStream.Length;
+					return firstStream.Length + secondStream.Length; 
                 }
             }
         }
+
 
         public override long Position
         {
@@ -105,7 +106,6 @@ namespace CS422
         {
             firstStream.Flush();
             secondStream.Flush();
-
         }
 
         public override void SetLength(long value)
@@ -198,6 +198,15 @@ namespace CS422
             if (buffer.Length < count)
                 throw new ArgumentException();
 
+			if (this.maxLength != -1) 
+			{
+				if ((this.Position + count) > maxLength)  //if trying to write more bytes than available in stream, set count equal to maximum bytes it can write.
+				{
+					count = (int) (this.Position + count - maxLength);
+				}
+			}
+
+
 
             if (streamPosition > firstStream.Length) //if only writing to the second stream
             {
@@ -245,3 +254,4 @@ namespace CS422
         }
     }
 }
+
